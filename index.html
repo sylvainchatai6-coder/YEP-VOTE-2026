@@ -1,116 +1,480 @@
 <!DOCTYPE html>
-<html lang="mg">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>✨ YEP VOTE 2026 ✨</title>
+    <title>⭐ YEP VOTE 2026 ⭐</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
-        body { 
-            font-family: 'Poppins', sans-serif; padding: 12px; max-width: 480px; margin: 0 auto; 
-            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%); min-height: 100vh;
-            touch-action: manipulation; position: relative; overflow-x: hidden;
+        *, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+
+        :root {
+            --hot-pink: #ff2d78;
+            --cyan: #00f5ff;
+            --purple: #b44fff;
+            --gold: #ffe566;
+            --dark: #080612;
+            --card-bg: #100d1f;
+            --surface: #13102a;
+            --text: #f0e6ff;
+            --muted: #8b7aaa;
         }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--dark);
+            min-height: 100vh;
+            padding: 0 0 40px;
+            overflow-x: hidden;
+            color: var(--text);
+        }
+
+        /* ── Animated bg grid ── */
         body::before {
-            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1.5" fill="white" opacity="0.6"/><circle cx="45" cy="25" r="1" fill="white" opacity="0.4"/><circle cx="80" cy="15" r="1.5" fill="white" opacity="0.5"/><circle cx="30" cy="60" r="1" fill="white" opacity="0.3"/><circle cx="70" cy="70" r="1.5" fill="white" opacity="0.6"/><circle cx="90" cy="50" r="1" fill="white" opacity="0.4"/><circle cx="15" cy="85" r="1" fill="white" opacity="0.5"/></svg>');
-            background-size: 200px 200px; pointer-events: none; z-index: 1;
+            content: '';
+            position: fixed; inset: 0;
+            background-image:
+                linear-gradient(rgba(0,245,255,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,245,255,0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none; z-index: 0;
+            animation: gridScroll 20s linear infinite;
         }
-        .container { 
-            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            padding: 25px 18px; border-radius: 40px; box-shadow: 0 25px 50px -10px rgba(0,0,0,0.2), 0 0 0 2px rgba(255,255,255,0.5) inset;
-            position: relative; z-index: 10; border: 1px solid rgba(255,255,255,0.6);
+        @keyframes gridScroll { from { background-position: 0 0; } to { background-position: 40px 40px; } }
+
+        /* ── Glow orbs ── */
+        .orb {
+            position: fixed; border-radius: 50%; pointer-events: none; z-index: 0;
+            filter: blur(80px); opacity: 0.25;
         }
-        h1 { 
-            color: transparent; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            -webkit-background-clip: text; background-clip: text; text-align: center; margin-bottom: 5px;
-            font-size: 36px; font-weight: 800; letter-spacing: 2px; text-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-            cursor: pointer; user-select: none; position: relative; display: inline-block; width: 100%;
+        .orb-1 { width: 400px; height: 400px; background: var(--hot-pink); top: -100px; left: -100px; animation: drift1 12s ease-in-out infinite alternate; }
+        .orb-2 { width: 350px; height: 350px; background: var(--cyan); bottom: -80px; right: -80px; animation: drift2 15s ease-in-out infinite alternate; }
+        .orb-3 { width: 250px; height: 250px; background: var(--purple); top: 40%; left: 50%; transform: translate(-50%,-50%); animation: drift3 10s ease-in-out infinite alternate; }
+        @keyframes drift1 { from { transform: translate(0,0); } to { transform: translate(40px, 60px); } }
+        @keyframes drift2 { from { transform: translate(0,0); } to { transform: translate(-40px,-40px); } }
+        @keyframes drift3 { from { transform: translate(-50%,-50%) scale(1); } to { transform: translate(-48%,-52%) scale(1.2); } }
+
+        /* ── HEADER ── */
+        .header {
+            position: relative; z-index: 10;
+            text-align: center;
+            padding: 40px 20px 20px;
         }
-        h1::after { content: '🎤'; position: absolute; right: 20px; top: 0; font-size: 28px; opacity: 0.8; }
-        h1::before { content: '🎤'; position: absolute; left: 20px; top: 0; font-size: 28px; opacity: 0.8; transform: scaleX(-1); }
-        .subtitle { text-align: center; color: #764ba2; margin-bottom: 20px; font-size: 13px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; opacity: 0.8; }
-        .secret-message { background: rgba(102, 126, 234, 0.9); backdrop-filter: blur(5px); color: white; padding: 8px 15px; border-radius: 30px; text-align: center; font-size: 12px; margin-bottom: 15px; display: none; font-weight: 600; }
-        .secret-message.show { display: block; animation: slideDown 0.3s ease; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-        .loading-screen { text-align: center; padding: 40px 20px; }
-        .spinner { width: 50px; height: 50px; margin: 0 auto 20px; border: 4px solid rgba(102, 126, 234, 0.2); border-top: 4px solid #764ba2; border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .main-screen { display: none; } .main-screen.show { display: block; }
-        .already-voted-message { background: linear-gradient(135deg, #fff3cd, #ffe4b5); border: 2px solid #ffc107; color: #856404; padding: 18px; border-radius: 25px; text-align: center; font-weight: 700; margin-bottom: 20px; display: none; box-shadow: 0 5px 15px rgba(255, 193, 7, 0.2); }
-        .already-voted-message.show { display: block; animation: pulse 0.5s ease; }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
-        .info-text { background: linear-gradient(135deg, #e7f3ff, #d4e4ff); border-left: 5px solid #667eea; padding: 15px; border-radius: 20px; font-size: 14px; margin-bottom: 20px; font-weight: 500; color: #1a1a2e; }
-        .candidates-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 20px 0; }
-        .candidate-card { background: white; border-radius: 25px; padding: 15px 18px; cursor: pointer; transition: all 0.3s; border: 3px solid transparent; touch-action: manipulation; display: flex; align-items: center; gap: 15px; box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1); position: relative; overflow: hidden; animation: float 4s ease-in-out infinite; }
-        .candidate-card:active { transform: scale(0.97); box-shadow: 0 5px 10px -3px rgba(0,0,0,0.15); }
-        .candidate-card.disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(0.3); }
-        .candidate-card.selected { border-color: #f093fb; background: linear-gradient(135deg, #fff5fd, #ffe0f7); box-shadow: 0 0 0 4px rgba(240, 147, 251, 0.2), 0 15px 25px -5px rgba(240, 147, 251, 0.3); }
-        .candidate-avatar { width: 65px; height: 65px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2, #f093fb); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; color: white; text-shadow: 0 2px 5px rgba(0,0,0,0.2); box-shadow: 0 8px 15px -3px rgba(102, 126, 234, 0.4); border: 3px solid white; flex-shrink: 0; position: relative; }
-        .candidate-avatar::after { content: '✨'; position: absolute; bottom: -5px; right: -5px; font-size: 18px; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1)); }
-        .candidate-card[data-index="0"] .candidate-avatar { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
-        .candidate-card[data-index="1"] .candidate-avatar { background: linear-gradient(135deg, #feca57, #ff9f43); }
-        .candidate-card[data-index="2"] .candidate-avatar { background: linear-gradient(135deg, #48dbfb, #0abde3); }
-        .candidate-card[data-index="3"] .candidate-avatar { background: linear-gradient(135deg, #1dd1a1, #10ac84); }
-        .candidate-card[data-index="4"] .candidate-avatar { background: linear-gradient(135deg, #f368e0, #be2edd); }
-        .candidate-card[data-index="5"] .candidate-avatar { background: linear-gradient(135deg, #ff9f43, #ee5a24); }
-        .candidate-card[data-index="6"] .candidate-avatar { background: linear-gradient(135deg, #a29bfe, #6c5ce7); }
-        .candidate-card[data-index="7"] .candidate-avatar { background: linear-gradient(135deg, #fd79a8, #e84393); }
-        .candidate-card[data-index="8"] .candidate-avatar { background: linear-gradient(135deg, #55efc4, #00b894); }
-        .candidate-card[data-index="9"] .candidate-avatar { background: linear-gradient(135deg, #ffeaa7, #fdcb6e); }
-        .candidate-card[data-index="10"] .candidate-avatar { background: linear-gradient(135deg, #81ecec, #00cec9); }
-        .candidate-card[data-index="11"] .candidate-avatar { background: linear-gradient(135deg, #fab1a0, #e17055); }
-        .candidate-card[data-index="12"] .candidate-avatar { background: linear-gradient(135deg, #74b9ff, #0984e3); }
-        .candidate-info { flex: 1; }
-        .candidate-header { display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
-        .candidate-number { font-size: 13px; font-weight: 700; color: white; background: linear-gradient(135deg, #667eea, #764ba2); padding: 3px 10px; border-radius: 20px; box-shadow: 0 3px 8px rgba(102, 126, 234, 0.3); }
-        .candidate-name { font-size: 18px; font-weight: 700; color: #1a1a2e; }
+
+        .agency-label {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 11px; font-weight: 600;
+            letter-spacing: 6px; text-transform: uppercase;
+            color: var(--cyan);
+            opacity: 0.8;
+            margin-bottom: 8px;
+        }
+
+        .title-wrap { position: relative; display: inline-block; }
+
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(52px, 14vw, 80px);
+            letter-spacing: 6px;
+            line-height: 1;
+            background: linear-gradient(135deg, #fff 10%, var(--hot-pink) 45%, var(--cyan) 80%);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+            position: relative;
+            filter: drop-shadow(0 0 30px rgba(255,45,120,0.5));
+        }
+
+        h1::after {
+            content: 'YEP VOTE 2026';
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, transparent 10%, rgba(255,45,120,0.15) 45%, rgba(0,245,255,0.15) 80%);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+            transform: translate(2px, 2px);
+            z-index: -1;
+        }
+
+        .subtitle {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 13px; font-weight: 600;
+            letter-spacing: 4px; text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 6px;
+        }
+
+        /* Decorative line */
+        .deco-line {
+            display: flex; align-items: center; gap: 12px;
+            margin: 18px auto; max-width: 320px;
+        }
+        .deco-line::before, .deco-line::after {
+            content: ''; flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--hot-pink), transparent);
+        }
+        .deco-star { color: var(--gold); font-size: 14px; }
+
+        /* ── CONTAINER ── */
+        .container {
+            max-width: 480px; margin: 0 auto;
+            padding: 0 14px;
+            position: relative; z-index: 10;
+        }
+
+        /* ── LOADING ── */
+        .loading-screen { text-align: center; padding: 60px 20px; }
+        .spinner {
+            width: 48px; height: 48px; margin: 0 auto 20px;
+            border: 3px solid rgba(255,45,120,0.15);
+            border-top: 3px solid var(--hot-pink);
+            border-right: 3px solid var(--cyan);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-text { font-family: 'Rajdhani', sans-serif; font-size: 13px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
+
+        /* ── MAIN SCREEN ── */
+        .main-screen { display: none; }
+        .main-screen.show { display: block; }
+
+        /* ── BANNERS ── */
+        .banner {
+            border-radius: 18px;
+            padding: 14px 18px;
+            margin-bottom: 16px;
+            font-size: 13px; font-weight: 700;
+            display: none;
+            animation: slideDown 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .banner.show { display: flex; align-items: center; gap: 10px; }
+
+        .banner-voted {
+            background: linear-gradient(135deg, rgba(255,45,120,0.12), rgba(180,79,255,0.12));
+            border: 1px solid rgba(255,45,120,0.4);
+            color: var(--hot-pink);
+        }
+        .banner-voted span { color: var(--text); font-weight: 400; font-size: 12px; }
+
+        .banner-success {
+            background: linear-gradient(135deg, rgba(0,245,255,0.1), rgba(0,245,255,0.05));
+            border: 1px solid rgba(0,245,255,0.4);
+            color: var(--cyan);
+            justify-content: center; text-align: center;
+        }
+
+        .info-text {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 12px 16px;
+            font-size: 13px; font-weight: 400;
+            color: var(--muted);
+            margin-bottom: 18px;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        /* ── SECTION LABEL ── */
+        .section-label {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 11px; font-weight: 700;
+            letter-spacing: 5px; text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 14px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .section-label::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.07); }
+
+        /* ── CANDIDATE CARDS ── */
+        .candidates-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 28px; }
+
+        .candidate-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 14px 16px;
+            cursor: pointer;
+            display: flex; align-items: center; gap: 14px;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Shimmer sweep */
+        .candidate-card::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.04) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+        .candidate-card:hover::before { transform: translateX(100%); }
+
+        .candidate-card:hover {
+            border-color: rgba(255,45,120,0.4);
+            background: #170e26;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(255,45,120,0.15);
+        }
+        .candidate-card:active { transform: scale(0.98); }
+
+        .candidate-card.selected {
+            border-color: var(--hot-pink);
+            background: rgba(255,45,120,0.08);
+            box-shadow: 0 0 0 1px var(--hot-pink), 0 0 30px rgba(255,45,120,0.2);
+        }
+
+        .candidate-card.disabled {
+            opacity: 0.45; cursor: not-allowed; pointer-events: none;
+        }
+        .candidate-card.selected.disabled { opacity: 1; }
+
+        /* Avatar */
+        .candidate-avatar {
+            width: 58px; height: 58px; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 22px; color: white;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .candidate-avatar::after {
+            content: '';
+            position: absolute; inset: -1px;
+            border-radius: 17px;
+            background: inherit;
+            filter: blur(12px);
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .candidate-card[data-index="0"] .candidate-avatar { background: linear-gradient(135deg, #ff2d78, #ff6ba8); }
+        .candidate-card[data-index="1"] .candidate-avatar { background: linear-gradient(135deg, #b44fff, #7b2fff); }
+        .candidate-card[data-index="2"] .candidate-avatar { background: linear-gradient(135deg, #00f5ff, #0099cc); }
+        .candidate-card[data-index="3"] .candidate-avatar { background: linear-gradient(135deg, #ffe566, #ff9900); }
+        .candidate-card[data-index="4"] .candidate-avatar { background: linear-gradient(135deg, #ff6b35, #ff2d78); }
+        .candidate-card[data-index="5"] .candidate-avatar { background: linear-gradient(135deg, #00ffb3, #00bcd4); }
+        .candidate-card[data-index="6"] .candidate-avatar { background: linear-gradient(135deg, #e040fb, #aa00ff); }
+        .candidate-card[data-index="7"] .candidate-avatar { background: linear-gradient(135deg, #40c4ff, #b44fff); }
+
+        /* Info */
+        .candidate-info { flex: 1; min-width: 0; }
+
+        .candidate-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+
+        .candidate-number {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--dark);
+            background: var(--cyan);
+            padding: 2px 8px; border-radius: 6px;
+        }
+
+        .candidate-name {
+            font-size: 16px; font-weight: 700;
+            color: var(--text);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+
         .candidate-votes { display: flex; align-items: baseline; gap: 5px; }
-        .vote-count { font-size: 28px; font-weight: 800; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .vote-label { font-size: 13px; color: #666; font-weight: 500; }
-        .confirmation-box { background: linear-gradient(135deg, #d4edda, #a8e6cf); border: 2px solid #28a745; color: #155724; padding: 15px 20px; border-radius: 30px; text-align: center; font-weight: 700; margin: 15px 0; display: none; box-shadow: 0 8px 20px rgba(40, 167, 69, 0.2); }
-        .confirmation-box.show { display: block; animation: pulse 0.5s ease; }
-        .results-section { margin-top: 25px; padding-top: 20px; border-top: 2px solid rgba(102, 126, 234, 0.2); }
-        .results-title { font-size: 18px; font-weight: 700; color: #1a1a2e; margin-bottom: 15px; text-align: center; }
-        .result-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(5px); border-radius: 20px; margin-bottom: 8px; border: 1px solid rgba(255, 255, 255, 0.8); }
-        .result-left { display: flex; align-items: center; gap: 12px; }
-        .result-mini-avatar { width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: white; }
-        .result-name { font-size: 14px; font-weight: 600; color: #1a1a2e; }
-        .result-number-badge { font-size: 22px; font-weight: 800; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .total-row { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; margin-top: 15px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 30px; color: white; cursor: pointer; user-select: none; box-shadow: 0 15px 30px -5px rgba(102, 126, 234, 0.4); transition: transform 0.2s; }
-        .total-row:active { transform: scale(0.98); }
-        .total-label { font-size: 18px; font-weight: 700; }
-        .total-number { font-size: 32px; font-weight: 800; text-shadow: 0 3px 10px rgba(0,0,0,0.2); }
-        .footer { text-align: center; margin-top: 25px; color: rgba(255, 255, 255, 0.9); font-size: 12px; font-weight: 600; letter-spacing: 2px; cursor: pointer; user-select: none; text-shadow: 0 2px 5px rgba(0,0,0,0.1); position: relative; z-index: 10; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
-        .candidate-card:nth-child(2) { animation-delay: 0.3s; } .candidate-card:nth-child(3) { animation-delay: 0.6s; }
-        .candidate-card:nth-child(4) { animation-delay: 0.9s; } .candidate-card:nth-child(5) { animation-delay: 1.2s; }
-        .candidate-card:nth-child(6) { animation-delay: 1.5s; } .candidate-card:nth-child(7) { animation-delay: 1.8s; }
-        .candidate-card:nth-child(8) { animation-delay: 2.1s; } .candidate-card:nth-child(9) { animation-delay: 2.4s; }
+
+        .vote-count {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 30px; line-height: 1;
+            background: linear-gradient(135deg, var(--hot-pink), var(--purple));
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+        }
+
+        .vote-label {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 11px; font-weight: 600;
+            letter-spacing: 2px; text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        /* ── RESULTS ── */
+        .results-section {
+            background: var(--surface);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 24px;
+            padding: 20px 16px;
+        }
+
+        .results-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 22px; letter-spacing: 4px;
+            color: var(--text);
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        .results-title span { color: var(--hot-pink); }
+
+        .result-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 14px;
+            border-radius: 14px;
+            margin-bottom: 6px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid transparent;
+            transition: all 0.4s ease;
+        }
+
+        .result-item.just-updated {
+            background: rgba(255,45,120,0.08);
+            border-color: rgba(255,45,120,0.25);
+            transform: scaleX(1.01);
+        }
+
+        .result-left { display: flex; align-items: center; gap: 10px; }
+
+        .result-rank {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px; width: 28px; text-align: center;
+            color: var(--muted);
+        }
+        .result-rank.gold { color: var(--gold); }
+        .result-rank.silver { color: #c0c0c0; }
+        .result-rank.bronze { color: #cd7f32; }
+
+        .result-mini-avatar {
+            width: 32px; height: 32px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 13px; color: white;
+        }
+
+        .result-name {
+            font-size: 13px; font-weight: 600;
+            color: var(--text);
+        }
+        .result-name small { color: var(--muted); font-weight: 400; font-size: 11px; }
+
+        .result-badge {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+        }
+
+        /* Total */
+        .total-row {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 14px;
+            padding: 14px 18px;
+            background: linear-gradient(135deg, rgba(255,45,120,0.15), rgba(180,79,255,0.15));
+            border: 1px solid rgba(255,45,120,0.3);
+            border-radius: 18px;
+        }
+
+        .total-label {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 13px; font-weight: 700;
+            letter-spacing: 4px; text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .total-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 36px;
+            background: linear-gradient(135deg, var(--hot-pink), var(--cyan));
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 11px; font-weight: 600;
+            letter-spacing: 4px; text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+            position: relative; z-index: 10;
+        }
+
+        /* ── SPARKLE ── */
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+        .sparkle {
+            position: fixed; pointer-events: none; z-index: 100;
+            font-size: 20px;
+            animation: sparkle 0.8s ease forwards;
+        }
+
+        /* ── Idol float animation ── */
+        @keyframes idolFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-4px); }
+        }
+        .candidate-card:nth-child(odd) { animation: idolFloat 3.5s ease-in-out infinite; }
+        .candidate-card:nth-child(even) { animation: idolFloat 3.5s ease-in-out infinite 0.7s; }
+        .candidate-card:hover { animation: none; }
     </style>
 </head>
 <body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<div class="header">
+    <div class="agency-label">★ Official Fan Vote ★</div>
+    <div class="title-wrap"><h1>YEP VOTE 2026</h1></div>
+    <p class="subtitle">One Voice · One Choice</p>
+    <div class="deco-line">
+        <span class="deco-star">✦</span>
+        <span class="deco-star">✦</span>
+        <span class="deco-star">✦</span>
+    </div>
+</div>
+
 <div class="container">
-    <h1 id="mainTitle">YEP VOTE 2026</h1>
-    <p class="subtitle">✨ Une voix · Un choix ✨</p>
-    <div class="secret-message" id="secretMessage"></div>
-    <div class="loading-screen" id="loadingScreen"><div class="spinner"></div><p style="color: #764ba2; font-weight: 600;">Chargement...</p></div>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="spinner"></div>
+        <p class="loading-text">Loading...</p>
+    </div>
+
     <div class="main-screen" id="mainScreen">
-        <div class="already-voted-message" id="alreadyVotedMsg">💜 Vous avez déjà voté ! 💜<br><span style="font-size: 13px; font-weight: 500;">Un seul vote par téléphone</span></div>
-        <div class="info-text" id="infoText">👆 Clique sur ton candidat préféré !</div>
+
+        <div class="banner banner-voted" id="alreadyVotedMsg">
+            💜 You've already voted! &nbsp;<span>One vote per device only.</span>
+        </div>
+
+        <div class="banner banner-success" id="confirmationBox">
+            ✨ VOTE RECORDED! Your voice has been heard ✨
+        </div>
+
+        <div class="info-text" id="infoText">
+            👆 Tap your favourite candidate to cast your vote
+        </div>
+
+        <div class="section-label">Candidates</div>
         <div class="candidates-grid" id="candidatesContainer"></div>
-        <div class="confirmation-box" id="confirmationBox">🎉 VOTE ENREGISTRÉ ! 🎉</div>
-        <div class="results-section"><div class="results-title">📊 CLASSEMENT LIVE 📊</div><div id="resultsList"></div>
-            <div class="total-row" id="totalRow"><span class="total-label">TOTAL</span><span class="total-number" id="totalVotes">00</span></div>
+
+        <div class="results-section">
+            <div class="results-title">📊 LIVE <span>RANKING</span></div>
+            <div id="resultsList"></div>
+            <div class="total-row">
+                <span class="total-label">Total Votes</span>
+                <span class="total-number" id="totalVotes">00</span>
+            </div>
         </div>
     </div>
 </div>
-<div class="footer" id="footerText">⚡ YEP VOTE 2026 ⚡</div>
+
+<div class="footer">⚡ YEP VOTE 2026 · Powered by Fan Love ⚡</div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, onSnapshot, getDocs, deleteDoc, query, where, writeBatch } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, onSnapshot, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyA2VMFvcW5xGBwEHgebQfFdpPijPnd9fog",
@@ -121,19 +485,19 @@
         appId: "1:348785969079:web:9f0eea45e514998f0f0a32"
     };
 
-    const STORAGE_KEY = 'vote_yep_2026';
-    const DEVICE_ID_KEY = 'device_yep_id';
-    
+    const STORAGE_KEY = 'yep_vote_2026_voted';
+    const DEVICE_ID_KEY = 'yep_vote_device_id';
+
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const votesCollection = collection(db, "votes_yep_2026");
 
     let deviceId = localStorage.getItem(DEVICE_ID_KEY);
-    if (!deviceId) { deviceId = 'device_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9); localStorage.setItem(DEVICE_ID_KEY, deviceId); }
+    if (!deviceId) {
+        deviceId = 'device_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem(DEVICE_ID_KEY, deviceId);
+    }
 
-    // ==========================================
-    // 📌 IRAO NO TOERANA HANOVANA CANDIDAT
-    // ==========================================
     const candidates = [
         { id: '1', number: '01', name: 'IARO', initials: 'IA' },
         { id: '2', number: '02', name: 'RJ', initials: 'RJ' },
@@ -141,68 +505,219 @@
         { id: '4', number: '04', name: 'NANDRAINA', initials: 'NA' },
         { id: '5', number: '05', name: 'TF NJ RK', fullName: 'Tsiky', initials: 'TF' },
         { id: '6', number: '06', name: 'Sahacia', initials: 'SA' },
-        { id: '7', number: '08', name: 'NY AINA MALEONIE', initials: 'NY' },  // VAOVAO
-        { id: '8', number: '09', name: 'Sylvain', initials: 'SY' },           // NAFINDRA
-        // ===== TOERANA +5 (Afaka ampidirina eto) =====
-        // { id: '9', number: '10', name: 'Anarana', initials: 'AN' },
-        // { id: '10', number: '11', name: 'Anarana', initials: 'AN' },
-        // { id: '11', number: '12', name: 'Anarana', initials: 'AN' },
-        // { id: '12', number: '13', name: 'Anarana', initials: 'AN' },
-        // { id: '13', number: '14', name: 'Anarana', initials: 'AN' }
+        { id: '7', number: '08', name: 'NY AINA MALEONIE', initials: 'NY' },
+        { id: '8', number: '09', name: 'Sylvain', initials: 'SY' }
     ];
 
     let hasVoted = localStorage.getItem(STORAGE_KEY) === 'true';
-    const loadingScreen = document.getElementById('loadingScreen'), mainScreen = document.getElementById('mainScreen');
-    const alreadyVotedMsg = document.getElementById('alreadyVotedMsg'), infoText = document.getElementById('infoText');
-    const confirmationBox = document.getElementById('confirmationBox'), candidatesContainer = document.getElementById('candidatesContainer');
-    const resultsList = document.getElementById('resultsList'), totalVotes = document.getElementById('totalVotes');
-    const mainTitle = document.getElementById('mainTitle'), secretMessage = document.getElementById('secretMessage');
-    const footerText = document.getElementById('footerText'), totalRow = document.getElementById('totalRow');
+    let previousVotes = {};
+
+    const loadingScreen = document.getElementById('loadingScreen');
+    const mainScreen = document.getElementById('mainScreen');
+    const alreadyVotedMsg = document.getElementById('alreadyVotedMsg');
+    const infoText = document.getElementById('infoText');
+    const confirmationBox = document.getElementById('confirmationBox');
+    const candidatesContainer = document.getElementById('candidatesContainer');
+    const resultsList = document.getElementById('resultsList');
+    const totalVotes = document.getElementById('totalVotes');
+
+    function getDeviceInfo() {
+        const ua = navigator.userAgent;
+        let deviceName = 'Unknown', deviceModel = 'Unknown';
+        if (/iPhone/.test(ua)) {
+            deviceName = 'iPhone';
+            const m = ua.match(/OS (\d+_\d+)/);
+            if (m) deviceModel = 'iOS ' + m[1].replace('_', '.');
+        } else if (/iPad/.test(ua)) {
+            deviceName = 'iPad';
+            const m = ua.match(/OS (\d+_\d+)/);
+            if (m) deviceModel = 'iOS ' + m[1].replace('_', '.');
+        } else if (/Android/.test(ua)) {
+            deviceName = 'Android';
+            const m = ua.match(/; ([^;]+) Build/);
+            if (m) deviceModel = m[1].trim();
+        } else if (/Windows/.test(ua)) {
+            deviceName = 'PC Windows';
+            deviceModel = 'Windows ' + (ua.match(/Windows NT (\d+\.\d+)/)?.[1] || '');
+        } else if (/Macintosh/.test(ua)) {
+            deviceName = 'Mac'; deviceModel = 'macOS';
+        }
+        return { deviceName, deviceModel };
+    }
+
+    function spawnSparkles(x, y) {
+        const emojis = ['✨','⭐','💜','🌟','💫'];
+        for (let i = 0; i < 5; i++) {
+            const el = document.createElement('div');
+            el.className = 'sparkle';
+            el.textContent = emojis[i % emojis.length];
+            el.style.left = (x + (Math.random() - 0.5) * 80) + 'px';
+            el.style.top = (y + (Math.random() - 0.5) * 80) + 'px';
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 900);
+        }
+    }
 
     function renderCandidates() {
         candidatesContainer.innerHTML = '';
         candidates.forEach((candidate, index) => {
-            const displayName = candidate.fullName ? `${candidate.name} <span style="font-size: 13px; font-weight: 400; color: #666;">(${candidate.fullName})</span>` : candidate.name;
-            const card = document.createElement('div'); card.className = 'candidate-card';
-            card.dataset.id = candidate.id; card.dataset.name = candidate.name; card.dataset.index = index;
-            card.innerHTML = `<div class="candidate-avatar">${candidate.initials}</div><div class="candidate-info"><div class="candidate-header"><span class="candidate-number">#${candidate.number}</span><span class="candidate-name">${displayName}</span></div><div class="candidate-votes"><span class="vote-count" id="voteCount-${candidate.id}">00</span><span class="vote-label">vote<span id="plural-${candidate.id}"></span></span></div></div>`;
-            card.addEventListener('click', () => vote(candidate.id, candidate.name, card));
+            const card = document.createElement('div');
+            card.className = 'candidate-card';
+            card.dataset.id = candidate.id;
+            card.dataset.index = index;
+
+            const fullNameHTML = candidate.fullName
+                ? `<span style="font-size:12px;font-weight:300;color:var(--muted);"> · ${candidate.fullName}</span>`
+                : '';
+
+            card.innerHTML = `
+                <div class="candidate-avatar">${candidate.initials}</div>
+                <div class="candidate-info">
+                    <div class="candidate-header">
+                        <span class="candidate-number">#${candidate.number}</span>
+                        <span class="candidate-name">${candidate.name}${fullNameHTML}</span>
+                    </div>
+                    <div class="candidate-votes">
+                        <span class="vote-count" id="voteCount-${candidate.id}">00</span>
+                        <span class="vote-label">&nbsp;VOTE<span id="plural-${candidate.id}"></span></span>
+                    </div>
+                </div>
+            `;
+
+            card.addEventListener('click', (e) => vote(candidate.id, card, e));
             candidatesContainer.appendChild(card);
         });
+
         if (hasVoted) disableAllCards();
     }
 
-    function disableAllCards() { document.querySelectorAll('.candidate-card').forEach(card => { card.style.pointerEvents = 'none'; card.classList.add('disabled'); }); }
+    function disableAllCards() {
+        document.querySelectorAll('.candidate-card').forEach(c => c.classList.add('disabled'));
+    }
+
     function formatNumber(num) { return num < 10 ? '0' + num : num; }
 
-    async function vote(candidateId, candidateName, cardElement) {
-        if (hasVoted || localStorage.getItem(STORAGE_KEY) === 'true') { alreadyVotedMsg.classList.add('show'); infoText.style.display = 'none'; return; }
-        hasVoted = true; disableAllCards(); localStorage.setItem(STORAGE_KEY, 'true'); cardElement.classList.add('selected');
+    async function vote(candidateId, cardElement, event) {
+        if (hasVoted || localStorage.getItem(STORAGE_KEY) === 'true') {
+            alreadyVotedMsg.classList.add('show');
+            infoText.style.display = 'none';
+            return;
+        }
+
         try {
-            await addDoc(votesCollection, { candidateId, candidateName, deviceId, timestamp: new Date().toISOString() });
-            confirmationBox.classList.add('show'); alreadyVotedMsg.classList.add('show'); infoText.style.display = 'none';
-        } catch (error) { console.error("Erreur:", error); alert("Erreur. Rafraîchissez la page."); }
+            const q = query(votesCollection, where("deviceId", "==", deviceId));
+            const snapshot = await getDocs(q);
+            if (!snapshot.empty) {
+                hasVoted = true;
+                localStorage.setItem(STORAGE_KEY, 'true');
+                alreadyVotedMsg.classList.add('show');
+                infoText.style.display = 'none';
+                disableAllCards();
+                return;
+            }
+        } catch (err) { console.error("Verification error:", err); }
+
+        hasVoted = true;
+        localStorage.setItem(STORAGE_KEY, 'true');
+        cardElement.classList.add('selected');
+
+        // Sparkle effect
+        const rect = cardElement.getBoundingClientRect();
+        spawnSparkles(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+        try {
+            const deviceInfo = getDeviceInfo();
+            await addDoc(votesCollection, {
+                candidateId,
+                deviceId,
+                deviceName: deviceInfo.deviceName,
+                deviceModel: deviceInfo.deviceModel,
+                timestamp: new Date().toISOString()
+            });
+
+            confirmationBox.classList.add('show');
+            alreadyVotedMsg.classList.add('show');
+            infoText.style.display = 'none';
+            disableAllCards();
+
+        } catch (err) {
+            console.error("Vote error:", err);
+            alert("Error while voting. Please try again.");
+            hasVoted = false;
+            localStorage.removeItem(STORAGE_KEY);
+            cardElement.classList.remove('selected');
+        }
     }
 
     onSnapshot(votesCollection, (snapshot) => {
-        const votes = {}; candidates.forEach(c => votes[c.id] = 0);
-        snapshot.forEach(doc => { const data = doc.data(); if (votes.hasOwnProperty(data.candidateId)) votes[data.candidateId]++; });
-        candidates.forEach(c => { const count = votes[c.id] || 0; const countEl = document.getElementById(`voteCount-${c.id}`); if (countEl) countEl.textContent = formatNumber(count); const pluralEl = document.getElementById(`plural-${c.id}`); if (pluralEl) pluralEl.textContent = count > 1 ? 's' : ''; });
-        const total = Object.values(votes).reduce((a, b) => a + b, 0); totalVotes.textContent = formatNumber(total);
-        const sortedCandidates = candidates.map(c => ({ ...c, votes: votes[c.id] || 0 })).sort((a, b) => b.votes - a.votes);
-        let resultsHTML = ''; const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#1dd1a1', '#f368e0', '#ff9f43', '#a29bfe', '#fd79a8', '#55efc4', '#ffeaa7', '#81ecec', '#fab1a0', '#74b9ff'];
-        sortedCandidates.forEach((c, index) => { const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}.`; const displayName = c.fullName ? `${c.name} (${c.fullName})` : c.name; resultsHTML += `<div class="result-item"><div class="result-left"><div class="result-mini-avatar" style="background: ${colors[index % colors.length]};">${c.initials}</div><span class="result-name">${medal} #${c.number} ${displayName}</span></div><span class="result-number-badge">${formatNumber(c.votes)}</span></div>`; });
-        resultsList.innerHTML = resultsHTML;
+        const currentVotes = {};
+        candidates.forEach(c => currentVotes[c.id] = 0);
+        const changedCandidates = [];
+
+        snapshot.forEach((doc) => {
+            const data = doc.data();
+            if (currentVotes.hasOwnProperty(data.candidateId)) currentVotes[data.candidateId]++;
+        });
+
+        candidates.forEach(c => {
+            const old = previousVotes[c.id] || 0;
+            if ((currentVotes[c.id] || 0) > old) changedCandidates.push(c.id);
+        });
+
+        candidates.forEach(c => {
+            const count = currentVotes[c.id] || 0;
+            const el = document.getElementById(`voteCount-${c.id}`);
+            if (el) el.textContent = formatNumber(count);
+            const pl = document.getElementById(`plural-${c.id}`);
+            if (pl) pl.textContent = count !== 1 ? 'S' : '';
+        });
+
+        const total = Object.values(currentVotes).reduce((a, b) => a + b, 0);
+        totalVotes.textContent = formatNumber(total);
+
+        const sorted = [...candidates]
+            .map(c => ({ ...c, votes: currentVotes[c.id] || 0 }))
+            .sort((a, b) => b.votes - a.votes);
+
+        const avatarColors = ['#ff2d78','#b44fff','#00f5ff','#ffe566','#ff6b35','#00ffb3','#e040fb','#40c4ff'];
+        const rankClasses = ['gold', 'silver', 'bronze'];
+        const medals = ['🥇', '🥈', '🥉'];
+
+        resultsList.innerHTML = sorted.map((c, i) => {
+            const updated = changedCandidates.includes(c.id);
+            const rankDisplay = i < 3 ? medals[i] : `${i + 1}`;
+            const rankClass = rankClasses[i] || '';
+            const fullNameHTML = c.fullName ? `<small> · ${c.fullName}</small>` : '';
+            return `
+                <div class="result-item ${updated ? 'just-updated' : ''}" data-candidate-id="${c.id}">
+                    <div class="result-left">
+                        <div class="result-rank ${rankClass}">${rankDisplay}</div>
+                        <div class="result-mini-avatar" style="background:${avatarColors[i % avatarColors.length]}">${c.initials}</div>
+                        <span class="result-name">#${c.number} ${c.name}${fullNameHTML}</span>
+                    </div>
+                    <span class="result-badge">${formatNumber(c.votes)}</span>
+                </div>
+            `;
+        }).join('');
+
+        setTimeout(() => {
+            document.querySelectorAll('.result-item.just-updated').forEach(el => el.classList.remove('just-updated'));
+        }, 2000);
+
+        previousVotes = { ...currentVotes };
     });
 
-    async function secretDeleteAllVotes() { if (!confirm("⚠️ SUPPRIMER TOUS LES VOTES ?")) return; secretMessage.textContent = '🗑️ Suppression...'; secretMessage.classList.add('show'); const snapshot = await getDocs(votesCollection); const batch = writeBatch(db); snapshot.forEach(doc => batch.delete(doc.ref)); await batch.commit(); localStorage.removeItem(STORAGE_KEY); hasVoted = false; location.reload(); }
-    async function secretDeleteMyVote() { const q = query(votesCollection, where("deviceId", "==", deviceId)); const snapshot = await getDocs(q); if (snapshot.empty) { secretMessage.textContent = '❌ Aucun vote'; secretMessage.classList.add('show'); setTimeout(() => secretMessage.classList.remove('show'), 2000); return; } for (const doc of snapshot.docs) await deleteDoc(doc.ref); localStorage.removeItem(STORAGE_KEY); hasVoted = false; location.reload(); }
-
-    let tapTitle = 0, timerTitle; mainTitle.addEventListener('click', () => { tapTitle++; secretMessage.textContent = `🔔 ${tapTitle}/5 (Admin)`; secretMessage.classList.add('show'); clearTimeout(timerTitle); timerTitle = setTimeout(() => { tapTitle = 0; secretMessage.classList.remove('show'); }, 1000); if (tapTitle >= 5) { clearTimeout(timerTitle); tapTitle = 0; secretMessage.textContent = '👑 MODE ADMIN'; secretMessage.classList.add('show'); setTimeout(() => secretMessage.classList.remove('show'), 2000); } });
-    let tapFooter = 0, timerFooter; footerText.addEventListener('click', () => { tapFooter++; secretMessage.textContent = `🗑️ ${tapFooter}/5 (Supprimer mon vote)`; secretMessage.classList.add('show'); clearTimeout(timerFooter); timerFooter = setTimeout(() => { tapFooter = 0; secretMessage.classList.remove('show'); }, 1000); if (tapFooter >= 5) { clearTimeout(timerFooter); tapFooter = 0; secretDeleteMyVote(); } });
-    let tapTotal = 0, timerTotal; totalRow.addEventListener('click', () => { tapTotal++; secretMessage.textContent = `⚠️ ${tapTotal}/5 (SUPPRIMER TOUT)`; secretMessage.style.background = '#8B0000'; secretMessage.style.color = '#FFA500'; secretMessage.classList.add('show'); clearTimeout(timerTotal); timerTotal = setTimeout(() => { tapTotal = 0; secretMessage.style.background = 'rgba(102, 126, 234, 0.9)'; secretMessage.style.color = 'white'; secretMessage.classList.remove('show'); }, 1000); if (tapTotal >= 5) { clearTimeout(timerTotal); tapTotal = 0; secretMessage.style.background = 'rgba(102, 126, 234, 0.9)'; secretMessage.style.color = 'white'; secretDeleteAllVotes(); } });
-
-    window.addEventListener('load', () => { renderCandidates(); loadingScreen.style.display = 'none'; mainScreen.classList.add('show'); if (hasVoted) { alreadyVotedMsg.classList.add('show'); infoText.style.display = 'none'; disableAllCards(); } });
+    window.addEventListener('load', () => {
+        candidates.forEach(c => previousVotes[c.id] = 0);
+        renderCandidates();
+        loadingScreen.style.display = 'none';
+        mainScreen.classList.add('show');
+        if (hasVoted) {
+            alreadyVotedMsg.classList.add('show');
+            infoText.style.display = 'none';
+            disableAllCards();
+        }
+    });
 </script>
 </body>
 </html>
